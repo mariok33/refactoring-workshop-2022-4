@@ -2,7 +2,7 @@
 
 #include <list>
 
-class SnakeSegment
+class SnakeSegments
 {
 public:
     bool isSegmentAtPosition(int x, int y) const;
