@@ -7,6 +7,7 @@
 
 #include "IEventHandler.hpp"
 #include "SnakeInterface.hpp"
+#include "SnakeSegments.hpp"
 
 class Event;
 class IPort;
@@ -41,14 +42,19 @@ private:
     std::pair<int, int> m_mapDimension;
     std::pair<int, int> m_foodPosition;
 
-    struct Segment
-    {
-        int x;
-        int y;
-    };
+    SnakeSegments snakeSegments;
 
-    std::list<Segment> m_segments;
-    Direction m_currentDirection;
+// public:
+//     struct Segment //ctr c
+//     {
+//         int x;
+//         int y;
+//     };
+
+private:
+
+    std::list<Segment> m_segments; // ctr c
+    Direction m_currentDirection; // ctr c
 
     void handleTimeoutInd();
     void handleDirectionInd(std::unique_ptr<Event>);
@@ -56,12 +62,12 @@ private:
     void handleFoodResp(std::unique_ptr<Event>);
     void handlePauseInd(std::unique_ptr<Event>);
 
-    bool isSegmentAtPosition(int x, int y) const;
-    Segment calculateNewHead() const;
-    void updateSegmentsIfSuccessfullMove(Segment const& newHead);
-    void addHeadSegment(Segment const& newHead);
-    void removeTailSegmentIfNotScored(Segment const& newHead);
-    void removeTailSegment();
+    bool isSegmentAtPosition(int x, int y) const; // ctr c
+    Segment calculateNewHead() const; // ctr c
+    void updateSegmentsIfSuccessfullMove(Segment const& newHead); 
+    void addHeadSegment(Segment const& newHead); // ctr c
+    void removeTailSegmentIfNotScored(Segment const& newHead); // ctr c
+    void removeTailSegment(); // ctr c
 
     bool isPositionOutsideMap(int x, int y) const;
 

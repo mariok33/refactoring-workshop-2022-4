@@ -1,5 +1,6 @@
 #include "SnakeController.hpp"
 
+
 #include <algorithm>
 #include <sstream>
 
@@ -62,7 +63,7 @@ Controller::Controller(IPort& p_displayPort, IPort& p_foodPort, IPort& p_scorePo
     }
 }
 
-bool Controller::isSegmentAtPosition(int x, int y) const
+bool Controller::isSegmentAtPosition(int x, int y) const // ctr c
 {
     return m_segments.end() !=  std::find_if(m_segments.cbegin(), m_segments.cend(),
         [x, y](auto const& segment){ return segment.x == x and segment.y == y; });
@@ -119,7 +120,7 @@ bool perpendicular(Direction dir1, Direction dir2)
 }
 } // namespace
 
-Controller::Segment Controller::calculateNewHead() const
+Segment Controller::calculateNewHead() const // ctr c
 {
     Segment const& currentHead = m_segments.front();
 
@@ -143,7 +144,7 @@ void Controller::removeTailSegment()
     m_segments.pop_back();
 }
 
-void Controller::addHeadSegment(Segment const& newHead)
+void Controller::addHeadSegment(Segment const& newHead) // ctr c
 {
     m_segments.push_front(newHead);
 
@@ -165,7 +166,7 @@ void Controller::removeTailSegmentIfNotScored(Segment const& newHead)
     }
 }
 
-void Controller::updateSegmentsIfSuccessfullMove(Segment const& newHead)
+void Controller::updateSegmentsIfSuccessfullMove(Segment const& newHead) 
 {
     if (isSegmentAtPosition(newHead.x, newHead.y) or isPositionOutsideMap(newHead.x, newHead.y)) {
         m_scorePort.send(std::make_unique<EventT<LooseInd>>());
